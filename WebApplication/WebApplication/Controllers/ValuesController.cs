@@ -3,12 +3,10 @@ using Microsoft.Azure.ServiceBus.Primitives;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApplication3.Controllers
+namespace WebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,9 +24,7 @@ namespace WebApplication3.Controllers
             string responseText = "";
 
             try
-            {
-                Binding binding = new BasicHttpBinding(BasicHttpSecurityMode.None);
-
+            {   
                 var relayUrl = _configs["ServiceBusRelayUrl"];
                 var tokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(_configs["RelayKeyName"], _configs["RelayKey"]);
                 SecurityToken token = await tokenProvider.GetTokenAsync(relayUrl, new TimeSpan(1, 0, 0));
